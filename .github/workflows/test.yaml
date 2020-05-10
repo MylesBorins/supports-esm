@@ -20,9 +20,9 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ matrix.os }}-node-${{ hashFiles('**/package.json') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ matrix.os }}-node-${{ matrix.node }}-
 
       - name: Install Dependencies
         run: npm i
