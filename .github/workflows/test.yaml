@@ -4,7 +4,10 @@ on: [pull_request]
 
 jobs:
   test-ci:
-    runs-on: [ubuntu-latest, windows-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest, ubuntu-latest]
     steps:
       - uses: actions/checkout@v2
 
