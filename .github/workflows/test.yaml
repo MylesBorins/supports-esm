@@ -12,15 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Get npm cache directory
+        id: npm-cache
+        run: |
+          echo "::set-output name=dir::$(npm config get cache)"
+
       - uses: actions/cache@v1
         with:
-          path: ~/.npm
-          key: ${{ matrix.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package-lock.json') }}
+          path: ${{ steps.npm-cache.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ matrix.os }}-node-${{ matrix.node }}-
+            ${{ runner.os }}-node-
 
       - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: npm i
 
       - name: Run test and coverage
