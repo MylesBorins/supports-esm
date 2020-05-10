@@ -20,7 +20,7 @@ jobs:
       - uses: actions/cache@v1
         with:
           path: ${{ steps.npm-cache.outputs.dir }}
-          key: ${{ matrix.os }}-node-${{ hashFiles('**/package.json') }}
+          key: ${{ matrix.os }}-node-${{ matrix.node }}-${{ hashFiles('**/package.json') }}
           restore-keys: |
             ${{ matrix.os }}-node-${{ matrix.node }}-
 
